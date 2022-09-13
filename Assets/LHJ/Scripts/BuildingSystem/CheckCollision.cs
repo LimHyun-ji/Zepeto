@@ -8,12 +8,17 @@ using UnityEngine;
 public class CheckCollision : MonoBehaviour
 {
     public bool canBuild=true;
-    public Material mat;
+    public Material[] materials;
     private void Awake() 
     {
         GetComponent<BoxCollider>().isTrigger=true;
         GetComponent<Rigidbody>().useGravity=false;
-        mat = GetComponentInChildren<MeshRenderer>().material;
+        MeshRenderer[] meshRenderer = GetComponentsInChildren<MeshRenderer>();
+        materials = new Material[meshRenderer.Length];
+        for(int i=0; i<meshRenderer.Length; i++)
+        {
+            materials[i] = meshRenderer[i].material;
+        }
     }
 
     
@@ -24,7 +29,7 @@ public class CheckCollision : MonoBehaviour
             //설치 가능
             canBuild=true;
             //파란색으로
-            mat.SetColor("_Color", Color.blue);
+            ChangeMatColor(materials, "_BaseColor", Color.blue);
         }
     }
     private void OnTriggerStay(Collider other) 
@@ -34,7 +39,16 @@ public class CheckCollision : MonoBehaviour
             //설치 불가
             canBuild=false;
             //빨간색으로 
-            mat.SetColor("_Color", Color.red);
+            //mat.SetColor("_BaseColor", Color.red);
+            ChangeMatColor(materials, "_BaseColor", Color.red);
+        }
+    }
+
+    public void ChangeMatColor(Material[] mats,string colorName, Color color)
+    {
+        for(int i=0 ; i< mats.Length; i++)
+        {
+            mats[i].SetColor(colorName, color);
         }
     }
 }
