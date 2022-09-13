@@ -83,7 +83,8 @@ public class GridBuildingSystem : MonoBehaviour
     {
         //pendingObj=Instantiate(objects[index], pos, transform.rotation);
         preObjects[index].SetActive(true);
-        preObjects[index].GetComponent<CheckCollision>().mat.SetColor("_Color", Color.blue);
+        preObjects[index].GetComponent<CheckCollision>().ChangeMatColor(preObjects[index].GetComponent<CheckCollision>().materials, "_BaseColor", Color.red);
+
         currentIndex=index;
         pendingObj=preObjects[index];
         pendingObj.transform.position=pos;
@@ -97,7 +98,8 @@ public class GridBuildingSystem : MonoBehaviour
 
         var obj = Instantiate(buildingObjects[currentIndex], pendingObj.transform.position, pendingObj.transform.rotation);
         checkCol = obj.GetComponent<CheckCollision>();
-        checkCol.mat.SetColor("_Color", Color.white);
+        checkCol.ChangeMatColor(checkCol.materials, "_BaseColor", Color.white);
+
         //스크립트 없애기
         Destroy(checkCol);
         
