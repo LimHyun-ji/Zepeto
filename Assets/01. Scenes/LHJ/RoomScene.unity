@@ -1464,13 +1464,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buildingObjects:
-  - {fileID: 7984678556812366684, guid: e358ad231a68cf7499c4cf12bd33677b, type: 3}
-  - {fileID: 1267658129422508, guid: 9566118a308257f48b491bc9272d187c, type: 3}
-  - {fileID: 2298488487913670356, guid: da7afa674a6fd354a93985d54347752f, type: 3}
+  - {fileID: 408745198330204432, guid: b259e9b92394f7b4b8232ff51b960cf1, type: 3}
+  - {fileID: 3757663143721959039, guid: c4b7eb1acfd695840b00c87d89196e14, type: 3}
+  - {fileID: 454188010729139127, guid: 36a6920bc69ec644b94b42dc303f99c2, type: 3}
   isGround: 0
   groundLayers:
     serializedVersion: 2
     m_Bits: 64
+  objectLayers:
+    serializedVersion: 2
+    m_Bits: 128
   gridSize: 1
   rotateAmount: 45
   gridToggle: {fileID: 1992371126}

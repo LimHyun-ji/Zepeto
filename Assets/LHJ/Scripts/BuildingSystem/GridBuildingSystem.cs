@@ -20,6 +20,7 @@ public class GridBuildingSystem : MonoBehaviour
     private int currentIndex;
     public bool isGround;
     [SerializeField] public LayerMask groundLayers;
+    [SerializeField] public LayerMask objectLayers;
     [SerializeField] private float gridSize;
     [SerializeField] private float rotateAmount;
     private bool gridOn=true;
@@ -35,6 +36,7 @@ public class GridBuildingSystem : MonoBehaviour
         preObjects=new GameObject[buildingObjects.Length];
         for(int i=0; i < buildingObjects.Length; i++)
         {
+            buildingObjects[i].GetComponent<MovableFurniture>().myIndex=i;
             preObjects[i] = Instantiate(buildingObjects[i]);
             preObjects[i].SetActive(false);
         }
@@ -64,6 +66,14 @@ public class GridBuildingSystem : MonoBehaviour
                 RotateObject();
             }
         }
+        else
+        {
+            if(Input.GetMouseButtonDown(0))
+            {
+                ReselectObject();
+            }
+        }
+
     }
     private void FixedUpdate() 
     {
@@ -75,36 +85,62 @@ public class GridBuildingSystem : MonoBehaviour
             pos = hitInfo.point;
             isGround=true;
         }
-        else   
-            isGround=false;
     }
     //버튼 선택해서 데리고 다니기
     public void SelectObject(int index)
     {
         //pendingObj=Instantiate(objects[index], pos, transform.rotation);
         preObjects[index].SetActive(true);
-        preObjects[index].GetComponent<CheckCollision>().ChangeMatColor(preObjects[index].GetComponent<CheckCollision>().materials, "_BaseColor", Color.red);
+        preObjects[index].GetComponent<MovableFurniture>().ChangeMatColor(preObjects[index].GetComponent<MovableFurniture>().materials, "_BaseColor", Color.blue);
 
         currentIndex=index;
         pendingObj=preObjects[index];
         pendingObj.transform.position=pos;
         pendingObj.transform.rotation=buildingObjects[index].transform.rotation;//원본 Prefab의 rotation값으로 불러오기
     }
+    public void ReselectObject()
+    {
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            Debug.Log("ResSelect");
+
+        if(Physics.Raycast(ray, out hitInfo, 1000, objectLayers))
+        {
+            Debug.Log("Ray");
+            //int _index = hitInfo.transform.gameObject.GetComponent<MovableFurniture>().myIndex;
+            //SelectObject(_index);
+            pendingObj = hitInfo.transform.gameObject;
+            pendingObj.AddComponent<MovableFurniture>();
+            MovableFurniture moveComp = pendingObj.GetComponent<MovableFurniture>();
+            moveComp.isPlaced=true;//재선택했다는 의미
+            moveComp.ChangeMatColor(moveComp.materials, "_BaseColor", Color.blue);
+        }
+    }
     private void PlaceObject()
     {
         //설치
-        CheckCollision checkCol = pendingObj.GetComponent<CheckCollision>();
+        MovableFurniture checkCol = pendingObj.GetComponent<MovableFurniture>();
         if(!checkCol.canBuild) return;
 
-        var obj = Instantiate(buildingObjects[currentIndex], pendingObj.transform.position, pendingObj.transform.rotation);
-        checkCol = obj.GetComponent<CheckCollision>();
+        GameObject obj;
+        if(!checkCol.isPlaced)
+        {
+            obj = Instantiate(buildingObjects[currentIndex], pendingObj.transform.position, pendingObj.transform.rotation);
+        }
+        else
+        {
+            obj=pendingObj;
+        }
+
+        checkCol = obj.GetComponent<MovableFurniture>();
         checkCol.ChangeMatColor(checkCol.materials, "_BaseColor", Color.white);
 
         //스크립트 없애기
         Destroy(checkCol);
-        
+        //checkCol.enabled=false;
+        //obj.GetComponent<MovableFurniture>().enabled=false;
+
         //List에 추가하기
-        DataManager.Instance().AddObjectInfo(currentIndex, obj.transform.localPosition, obj.transform.localScale, obj.transform.localEulerAngles);
+        DataManager.Instance().AddObjectInfo(obj.GetHashCode(),currentIndex, obj.transform.localPosition, obj.transform.localScale, obj.transform.localEulerAngles);
 
         pendingObj=null;
         preObjects[currentIndex].SetActive(false);
@@ -132,5 +168,9 @@ public class GridBuildingSystem : MonoBehaviour
     {
         //마우스 드래그  방향에 따라(추가예정)
         pendingObj.transform.eulerAngles += new Vector3(0, rotateAmount, 0);
+    }
+    private void ScaleObject()
+    {
+
     }
 }

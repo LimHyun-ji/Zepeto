@@ -7,6 +7,7 @@ using UnityEngine;
 [System.Serializable]
 public class ObjectInfo
 {
+    public int objHashCode;
     public int objIndex;
     public Vector3 position;
     public Vector3 scale;
@@ -35,10 +36,11 @@ public class DataManager : MonoBehaviour
     }
 
     //Infolist에 정보 추가하기
-    public void AddObjectInfo(int objIndex, Vector3 pos, Vector3 scale, Vector3 angle)
+    public void AddObjectInfo(int hashCode, int objIndex, Vector3 pos, Vector3 scale, Vector3 angle)
     {
         ObjectInfo objInfo= new ObjectInfo();
 
+        objInfo.objHashCode=hashCode;
         objInfo.objIndex=objIndex;
         objInfo.position=pos;
         objInfo.scale=scale;
@@ -87,6 +89,6 @@ public class DataManager : MonoBehaviour
         obj.transform.position = info.position;
         obj.transform.localScale = info.scale;
         obj.transform.eulerAngles = info.angle;
-        Destroy(obj.GetComponent<CheckCollision>());
+        Destroy(obj.GetComponent<MovableFurniture>());
     }
 }
