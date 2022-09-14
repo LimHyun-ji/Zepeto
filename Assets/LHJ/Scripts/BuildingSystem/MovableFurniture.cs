@@ -8,6 +8,7 @@ using UnityEngine;
 public class MovableFurniture : MonoBehaviour
 {
     public bool canBuild = true;
+    [HideInInspector] public bool isInit=true;
     [HideInInspector] public bool isPlaced;
     [HideInInspector] public Material[] materials;
     [HideInInspector] public int myIndex;
@@ -23,22 +24,11 @@ public class MovableFurniture : MonoBehaviour
             materials[i] = meshRenderer[i].material;
         }
     }
-    void Start()
-    {
 
-    }
-
-    private void Update()
-    {
-        if (Input.GetKey(KeyCode.G))
-        {
-            print(string.Format("{0} 클릭!!!", gameObject.name));
-        }
-    }
 
     private void OnTriggerExit(Collider other)
     {
-        if (1 << other.gameObject.layer != GridBuildingSystem.Instance().groundLayers)
+        if (!isPlaced && 1 << other.gameObject.layer != GridBuildingSystem.Instance().groundLayers)
         {
             //설치 가능
             canBuild = true;
@@ -48,7 +38,7 @@ public class MovableFurniture : MonoBehaviour
     }
     private void OnTriggerStay(Collider other)
     {
-        if (1 << other.gameObject.layer != GridBuildingSystem.Instance().groundLayers)
+        if (!isPlaced && 1 << other.gameObject.layer != GridBuildingSystem.Instance().groundLayers)
         {
             //설치 불가
             canBuild = false;

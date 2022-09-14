@@ -23,6 +23,8 @@ public class GridBuildingSystem : MonoBehaviour
     [SerializeField] public LayerMask objectLayers;
     [SerializeField] private float gridSize;
     [SerializeField] private float rotateAmount;
+    [SerializeField] private float scaleAmount=0.2f;
+
     private bool gridOn=true;
     [SerializeField] private Toggle gridToggle;
     [SerializeField] private Vector3 startPos;//int단위로 입력하기
@@ -65,6 +67,19 @@ public class GridBuildingSystem : MonoBehaviour
             {
                 RotateObject();
             }
+            if(Input.GetKeyDown(KeyCode.UpArrow))
+            {
+                ScaleObject(scaleAmount);
+            }
+            if(Input.GetKeyDown(KeyCode.DownArrow))
+            {
+                ScaleObject(-scaleAmount);
+            }
+            if(Input.GetKeyDown(KeyCode.Delete))
+            {
+                RemoveObject();
+            }
+        
         }
         else
         {
@@ -109,9 +124,10 @@ public class GridBuildingSystem : MonoBehaviour
             //int _index = hitInfo.transform.gameObject.GetComponent<MovableFurniture>().myIndex;
             //SelectObject(_index);
             pendingObj = hitInfo.transform.gameObject;
-            //pendingObj.AddComponent<MovableFurniture>();
+            //pendingObj.GetComponent<MovableFurniture>().enabled=true;
             MovableFurniture moveComp = pendingObj.GetComponent<MovableFurniture>();
-            moveComp.isPlaced=true;//재선택했다는 의미
+            moveComp.enabled=true;
+            moveComp.isPlaced=false;
             moveComp.ChangeMatColor(moveComp.materials, "_BaseColor", Color.blue);
         }
     }
@@ -122,13 +138,15 @@ public class GridBuildingSystem : MonoBehaviour
         if(!checkCol.canBuild) return;
 
         GameObject obj;
-        if(!checkCol.isPlaced)
+        if(checkCol.isInit)
         {
+
             obj = Instantiate(buildingObjects[currentIndex], pendingObj.transform.position, pendingObj.transform.rotation);
             obj.name += Random.Range(0, 99).ToString();
         }
         else
         {
+            //재선택이면
             obj=pendingObj;
         }
 
@@ -137,12 +155,13 @@ public class GridBuildingSystem : MonoBehaviour
 
         //스크립트 없애기
         //Destroy(checkCol);
+        checkCol.isPlaced=true;
+        checkCol.isInit=false;
         checkCol.enabled=false;
-        checkCol.gameObject.GetComponent<BoxCollider>().enabled = false;
         //obj.GetComponent<MovableFurniture>().enabled=false;
 
         //List에 추가하기
-        DataManager.Instance().AddObjectInfo(obj.GetHashCode(),currentIndex, obj.transform.localPosition, obj.transform.localScale, obj.transform.localEulerAngles);
+        //DataManager.Instance().AddObjectInfo(obj.GetHashCode(),currentIndex, obj.transform.localPosition, obj.transform.localScale, obj.transform.localEulerAngles);
 
         pendingObj=null;
         preObjects[currentIndex].SetActive(false);
@@ -171,8 +190,30 @@ public class GridBuildingSystem : MonoBehaviour
         //마우스 드래그  방향에 따라(추가예정)
         pendingObj.transform.eulerAngles += new Vector3(0, rotateAmount, 0);
     }
-    private void ScaleObject()
+     private void ScaleObject(float scaleAmount)
     {
+        pendingObj.transform.transform.localScale += Vector3.one * scaleAmount;
+    }
+    private void RemoveObject()
+    {
+        MovableFurniture checkCol = pendingObj.GetComponent<MovableFurniture>();
+        if(checkCol.isPlaced)//재선택이면
+            Destroy(pendingObj);
+        else
+            pendingObj.SetActive(false);
 
+        pendingObj=null;
+    }
+    public void GetMovableObj()
+    {
+        //저장할 때마다 아에 지우고 새로 담아주기
+        DataManager.Instance().objInfoList.Clear();
+        GameObject[] movableObjs = GameObject.FindGameObjectsWithTag("MovableObject");
+        foreach(GameObject obj in movableObjs)
+        {
+            int _index = obj.GetComponent<MovableFurniture>().myIndex;
+            DataManager.Instance().AddObjectInfo(obj.GetHashCode(),_index, obj.transform.localPosition, obj.transform.localScale, obj.transform.localEulerAngles);
+        }
+        DataManager.Instance().OnSave();
     }
 }

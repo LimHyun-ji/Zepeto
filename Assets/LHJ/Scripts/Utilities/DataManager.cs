@@ -91,5 +91,6 @@ public class DataManager : MonoBehaviour
         obj.transform.eulerAngles = info.angle;
         //Destroy(obj.GetComponent<MovableFurniture>());
         obj.GetComponent<MovableFurniture>().enabled=false;
+        obj.GetComponent<MovableFurniture>().isPlaced=true;
     }
 }
