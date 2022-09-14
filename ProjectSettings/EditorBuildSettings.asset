@@ -9,4 +9,6 @@ EditorBuildSettings:
     path: Assets/LHJ/01. Scenes/CharacterScene.unity
     guid: 70bfbb106dab1be4ebc3c21f26058b5d
   m_configObjects:
+    UnityEditor.XR.ARCore.ARCoreSettings: {fileID: 11400000, guid: f0bb7a8b01c391d448a87892b0c709da, type: 2}
     UnityEditor.XR.ARKit.ARKitSettings: {fileID: 11400000, guid: 2c2242579b8ec984d8c814307856feed, type: 2}
+    com.unity.xr.arfoundation.simulation_settings: {fileID: 11400000, guid: c3db02dd9a2f52e4781e057193bac566, type: 2}
