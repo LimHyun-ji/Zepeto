@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 4615.625, g: 5774.828, b: 7844.4766, a: 1}
+  m_IndirectSpecularColor: {r: 3697.2656, g: 4625.961, b: 6284.047, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -501,9 +501,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1358916078}
-        m_TargetAssemblyTypeName: DataManager, Assembly-CSharp
-        m_MethodName: OnSave
+      - m_Target: {fileID: 1358916076}
+        m_TargetAssemblyTypeName: GridBuildingSystem, Assembly-CSharp
+        m_MethodName: GetMovableObj
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1476,6 +1476,7 @@ MonoBehaviour:
     m_Bits: 128
   gridSize: 1
   rotateAmount: 45
+  scaleAmount: 0.2
   gridToggle: {fileID: 1992371126}
   startPos: {x: -10, y: 0, z: -10}
 --- !u!4 &1358916077

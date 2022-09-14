@@ -97,7 +97,7 @@ GameObject:
   - component: {fileID: 1401719281279479639}
   m_Layer: 7
   m_Name: Table_97_Artek
-  m_TagString: Untagged
+  m_TagString: MovableObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -161,6 +161,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canBuild: 1
+  isPlaced: 0
   materials: []
   myIndex: 0
 --- !u!1 &5188375727717472727

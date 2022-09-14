@@ -97,7 +97,7 @@ GameObject:
   - component: {fileID: 1328355457989413569}
   m_Layer: 7
   m_Name: Coffee_Table_907B_Artek
-  m_TagString: Untagged
+  m_TagString: MovableObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -161,6 +161,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canBuild: 1
+  isPlaced: 0
   materials: []
   myIndex: 0
 --- !u!1 &8899239897378158207

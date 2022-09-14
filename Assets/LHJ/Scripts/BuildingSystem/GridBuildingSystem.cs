@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,7 +12,7 @@ public class GridBuildingSystem : MonoBehaviour
         return _instance;
     }
 
-    public GameObject[] buildingObjects;
+    public List<GameObject> buildingObjects;
     //미리보기용 오브젝트
     private GameObject[] preObjects;
     private Vector3 pos;
@@ -23,6 +24,8 @@ public class GridBuildingSystem : MonoBehaviour
     [SerializeField] public LayerMask objectLayers;
     [SerializeField] private float gridSize;
     [SerializeField] private float rotateAmount;
+    [SerializeField] private float scaleAmount;
+
     private bool gridOn=true;
     [SerializeField] private Toggle gridToggle;
     [SerializeField] private Vector3 startPos;//int단위로 입력하기
@@ -33,8 +36,8 @@ public class GridBuildingSystem : MonoBehaviour
     {
         _instance=this;
 
-        preObjects=new GameObject[buildingObjects.Length];
-        for(int i=0; i < buildingObjects.Length; i++)
+        preObjects=new GameObject[buildingObjects.Count];
+        for(int i=0; i < buildingObjects.Count; i++)
         {
             buildingObjects[i].GetComponent<MovableFurniture>().myIndex=i;
             preObjects[i] = Instantiate(buildingObjects[i]);
@@ -65,6 +68,18 @@ public class GridBuildingSystem : MonoBehaviour
             {
                 RotateObject();
             }
+            if(Input.GetKeyDown(KeyCode.UpArrow))
+            {
+                ScaleObject(scaleAmount);
+            }
+            if(Input.GetKeyDown(KeyCode.DownArrow))
+            {
+                ScaleObject(-scaleAmount);
+            }
+            if(Input.GetKeyDown(KeyCode.Delete))
+            {
+                RemoveObject();
+            }
         }
         else
         {
@@ -75,6 +90,9 @@ public class GridBuildingSystem : MonoBehaviour
         }
 
     }
+
+
+
     private void FixedUpdate() 
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -101,11 +119,10 @@ public class GridBuildingSystem : MonoBehaviour
     public void ReselectObject()
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            Debug.Log("ResSelect");
 
         if(Physics.Raycast(ray, out hitInfo, 1000, objectLayers))
         {
-            Debug.Log("Ray");
+            Debug.Log("Ray hitInfo.transform.gameObject: "+ hitInfo.transform.gameObject.GetHashCode());
             //int _index = hitInfo.transform.gameObject.GetComponent<MovableFurniture>().myIndex;
             //SelectObject(_index);
             pendingObj = hitInfo.transform.gameObject;
@@ -134,13 +151,13 @@ public class GridBuildingSystem : MonoBehaviour
         checkCol = obj.GetComponent<MovableFurniture>();
         checkCol.ChangeMatColor(checkCol.materials, "_BaseColor", Color.white);
 
-        //스크립트 없애기
-        Destroy(checkCol);
-        //checkCol.enabled=false;
+        //스크립트 없애기--> 왜 안돼
+        //Destroy(checkCol);
+        checkCol.enabled=false;
         //obj.GetComponent<MovableFurniture>().enabled=false;
 
         //List에 추가하기
-        DataManager.Instance().AddObjectInfo(obj.GetHashCode(),currentIndex, obj.transform.localPosition, obj.transform.localScale, obj.transform.localEulerAngles);
+        //DataManager.Instance().AddObjectInfo(obj.GetHashCode(),currentIndex, obj.transform.localPosition, obj.transform.localScale, obj.transform.localEulerAngles);
 
         pendingObj=null;
         preObjects[currentIndex].SetActive(false);
@@ -169,8 +186,30 @@ public class GridBuildingSystem : MonoBehaviour
         //마우스 드래그  방향에 따라(추가예정)
         pendingObj.transform.eulerAngles += new Vector3(0, rotateAmount, 0);
     }
-    private void ScaleObject()
+    private void ScaleObject(float scaleAmount)
     {
+        pendingObj.transform.transform.localScale += Vector3.one * scaleAmount;
+    }
+    private void RemoveObject()
+    {
+        MovableFurniture checkCol = pendingObj.GetComponent<MovableFurniture>();
+        if(checkCol.isPlaced)//재선택이면
+            Destroy(pendingObj);
+        else
+            pendingObj.SetActive(false);
 
+        pendingObj=null;
+    }
+    public void GetMovableObj()
+    {
+        //저장할 때마다 아에 지우고 새로 담아주기
+        DataManager.Instance().objInfoList.Clear();
+        GameObject[] movableObjs = GameObject.FindGameObjectsWithTag("MovableObject");
+        foreach(GameObject obj in movableObjs)
+        {
+            int _index = obj.GetComponent<MovableFurniture>().myIndex;
+            DataManager.Instance().AddObjectInfo(obj.GetHashCode(),_index, obj.transform.localPosition, obj.transform.localScale, obj.transform.localEulerAngles);
+        }
+        DataManager.Instance().OnSave();
     }
 }
