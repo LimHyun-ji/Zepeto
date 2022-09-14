@@ -4,7 +4,8 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using OutlineNamespace;
 
-public class Controls : MonoBehaviour {
+public class Controls : MonoBehaviour 
+{
 
     public enum DrawMode { WALL, FLOOR, DELETE, NONE };
     public DrawMode drawMode;
@@ -27,15 +28,15 @@ public class Controls : MonoBehaviour {
 
     Transform hoveredTransform;
 
-    // Use this for initialization
-    void Start() {
+    void Start() 
+    {
         gameController = FindObjectOfType<GameController>();
         UIcontroller = FindObjectOfType<UIController>();
         DrawModeDelete();
     }
 
-    // Update is called once per frame
-    void Update() {
+    void Update() 
+    {
 
         //get mousePosition this frame
         Vector3 mousePosThisFrame = GetMouseWorldPos(wallCreationLayerMask);

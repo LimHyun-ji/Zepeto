@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+// Building System Tool UI
 public class UIController : MonoBehaviour {
 
     public Image toolImage;
@@ -12,17 +13,18 @@ public class UIController : MonoBehaviour {
     public Sprite iconFloor;
     Controls controls;
 
-	// Use this for initialization
-	void Start () {
+	void Start () 
+    {
         controls = FindObjectOfType<Controls>();
 	}
 	
-	// Update is called once per frame
-	void Update () {
+	void Update () 
+    {
 		
 	}
 
-    public void UpdateIcon() {
+    public void UpdateIcon() 
+    {
         if (controls.drawMode == Controls.DrawMode.WALL) {
             toolImage.sprite = iconWall;
         } else if (controls.drawMode == Controls.DrawMode.FLOOR) {
@@ -34,7 +36,8 @@ public class UIController : MonoBehaviour {
         }
     }
 
-    public void HideControls() {
+    public void HideControls() 
+    {
         Debug.Log("use");
         controlsTutorial.SetActive(false);
     }
