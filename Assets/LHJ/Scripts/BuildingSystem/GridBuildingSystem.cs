@@ -109,7 +109,7 @@ public class GridBuildingSystem : MonoBehaviour
             //int _index = hitInfo.transform.gameObject.GetComponent<MovableFurniture>().myIndex;
             //SelectObject(_index);
             pendingObj = hitInfo.transform.gameObject;
-            pendingObj.AddComponent<MovableFurniture>();
+            //pendingObj.AddComponent<MovableFurniture>();
             MovableFurniture moveComp = pendingObj.GetComponent<MovableFurniture>();
             moveComp.isPlaced=true;//재선택했다는 의미
             moveComp.ChangeMatColor(moveComp.materials, "_BaseColor", Color.blue);
@@ -125,6 +125,7 @@ public class GridBuildingSystem : MonoBehaviour
         if(!checkCol.isPlaced)
         {
             obj = Instantiate(buildingObjects[currentIndex], pendingObj.transform.position, pendingObj.transform.rotation);
+            obj.name += Random.Range(0, 99).ToString();
         }
         else
         {
@@ -135,8 +136,9 @@ public class GridBuildingSystem : MonoBehaviour
         checkCol.ChangeMatColor(checkCol.materials, "_BaseColor", Color.white);
 
         //스크립트 없애기
-        Destroy(checkCol);
-        //checkCol.enabled=false;
+        //Destroy(checkCol);
+        checkCol.enabled=false;
+        checkCol.gameObject.GetComponent<BoxCollider>().enabled = false;
         //obj.GetComponent<MovableFurniture>().enabled=false;
 
         //List에 추가하기
