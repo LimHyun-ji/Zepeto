@@ -69,64 +69,57 @@ public class CameraManager : MonoBehaviour
                 if(Input.GetMouseButton(1))
                 {
                     RotateCamera(target);
-                    MoveCamera();
+                    MoveCharacterSelectModeCamera();
                 }
                 break;
             case CameraMode.BuildMode:
                 if(Input.GetMouseButton(1))//우클릭
                 {
                     RotateCamera(transform);
-                    MoveCamera();
+                    MoveBuildModeCamera();
                 }
                 break;
         }        
     }
     
-
-    public void MoveCamera()
+    public void MoveCharacterSelectModeCamera()
     {
-        //float distance=Vector3.Distance(transform.position, camPos.position);
         float angleX=transform.eulerAngles.x;
+        float distance=Vector3.Distance(transform.position, camPos.position);
+        if(distance< minDistance || distance > maxDistance) return;
 
-        Vector3 dir;
-        //타겟이 빌드 부지이면
-        dir =(transform.right * h + transform.up * y + transform.forward* v).normalized;
-        //타겟이 캐릭터이면
-        if(target.gameObject.tag == "Player")
+        
+        Vector3 dir = Vector3.forward * v;
+        //가까이 가면 x값이 0으로
+        if(v>0)
         {
-            dir = Vector3.forward * v;
-            //가까이 가면 x값이 0으로
-            if(v>0)
-            {
-                angleX = Mathf.Lerp(angleX, 0, Time.deltaTime);
-            }
-            //멀리 가면 x값이 15으로
-            else if(v<0)
-            {
-                angleX = Mathf.Lerp(angleX, 14, Time.deltaTime);
-            }
-            transform.eulerAngles = new Vector3(angleX, 0, 0);
-            transform.position +=  dir * moveSpeed/10*Time.deltaTime;
+            angleX = Mathf.Lerp(angleX, 0, Time.deltaTime);
         }
-        else
+        //멀리 가면 x값이 15으로
+        else if(v<0)
         {
-            transform.position +=  dir * moveSpeed*Time.deltaTime;
+            angleX = Mathf.Lerp(angleX, 14, Time.deltaTime);
         }
+        transform.eulerAngles = new Vector3(angleX, 0, 0);
+        transform.position +=  dir * moveSpeed/10*Time.deltaTime;
 
-        if(camPos)
-        {
-            float distance=Vector3.Distance(transform.position, camPos.position);
-            if(distance< minDistance || distance > maxDistance) return;
 
-            if(distance > maxDistance ) 
-            {
-                transform.localPosition = new Vector3(0, 0, -maxDistance);
-            }
-            if(distance < minDistance ) 
-            {
-                transform.localPosition = new Vector3(0, 0, -minDistance);
-            }
+        distance=Vector3.Distance(transform.position, camPos.position);
+
+        if(distance > maxDistance ) 
+        {
+            transform.localPosition = new Vector3(0, 0, -maxDistance);
         }
+        if(distance < minDistance ) 
+        {
+            transform.localPosition = new Vector3(0, 0, -minDistance);
+        }
+    }
+    public void MoveBuildModeCamera()
+    {
+        Vector3 dir =(transform.right * h + transform.up * y + transform.forward* v).normalized;
+
+        transform.position +=  dir * moveSpeed*Time.deltaTime;
     }
 
     public void RotateCamera(Transform rotateTarget)

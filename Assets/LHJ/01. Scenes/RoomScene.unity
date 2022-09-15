@@ -1190,8 +1190,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73edf33af0971cd42b5811d16ec9c968, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  target: {fileID: 1244185659}
   mouseSpeed: 200
   moveSpeed: 5
+  minDistance: 0.5
+  maxDistance: 3
+  maxRot: 0
+  minRot: 0
 --- !u!114 &963194231
 MonoBehaviour:
   m_ObjectHideFlags: 0

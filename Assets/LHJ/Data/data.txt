@@ -1,7 +1,7 @@
 {
     "data": [
         {
-            "objHashCode": -76816,
+            "objHashCode": -97468,
             "objIndex": 0,
             "position": {
                 "x": -2.0,
@@ -20,7 +20,7 @@
             }
         },
         {
-            "objHashCode": -76856,
+            "objHashCode": -97508,
             "objIndex": 1,
             "position": {
                 "x": -3.0,
@@ -39,7 +39,7 @@
             }
         },
         {
-            "objHashCode": -76966,
+            "objHashCode": -97618,
             "objIndex": 0,
             "position": {
                 "x": 2.0,
@@ -58,7 +58,7 @@
             }
         },
         {
-            "objHashCode": -77006,
+            "objHashCode": -97658,
             "objIndex": 0,
             "position": {
                 "x": 2.0,
@@ -77,7 +77,7 @@
             }
         },
         {
-            "objHashCode": -77046,
+            "objHashCode": -97698,
             "objIndex": 1,
             "position": {
                 "x": 4.0,
@@ -96,7 +96,7 @@
             }
         },
         {
-            "objHashCode": -77156,
+            "objHashCode": -97808,
             "objIndex": 2,
             "position": {
                 "x": -2.0,
@@ -115,7 +115,7 @@
             }
         },
         {
-            "objHashCode": -77206,
+            "objHashCode": -97858,
             "objIndex": 0,
             "position": {
                 "x": -2.0,
@@ -134,7 +134,7 @@
             }
         },
         {
-            "objHashCode": -77246,
+            "objHashCode": -97898,
             "objIndex": 0,
             "position": {
                 "x": -13.0,
@@ -153,7 +153,7 @@
             }
         },
         {
-            "objHashCode": -77286,
+            "objHashCode": -97938,
             "objIndex": 1,
             "position": {
                 "x": 4.0,
@@ -172,7 +172,7 @@
             }
         },
         {
-            "objHashCode": -77396,
+            "objHashCode": -98048,
             "objIndex": 0,
             "position": {
                 "x": -4.0,
@@ -191,7 +191,7 @@
             }
         },
         {
-            "objHashCode": -77436,
+            "objHashCode": -98088,
             "objIndex": 0,
             "position": {
                 "x": -3.0,
@@ -210,7 +210,7 @@
             }
         },
         {
-            "objHashCode": -77476,
+            "objHashCode": -98128,
             "objIndex": 1,
             "position": {
                 "x": 0.0,
@@ -229,7 +229,7 @@
             }
         },
         {
-            "objHashCode": -77586,
+            "objHashCode": -98238,
             "objIndex": 2,
             "position": {
                 "x": 3.0,
@@ -248,7 +248,7 @@
             }
         },
         {
-            "objHashCode": -77636,
+            "objHashCode": -98288,
             "objIndex": 2,
             "position": {
                 "x": 2.0,
@@ -267,7 +267,7 @@
             }
         },
         {
-            "objHashCode": -77686,
+            "objHashCode": -98338,
             "objIndex": 2,
             "position": {
                 "x": 4.0,
@@ -286,7 +286,7 @@
             }
         },
         {
-            "objHashCode": -77736,
+            "objHashCode": -98388,
             "objIndex": 2,
             "position": {
                 "x": 4.0,
@@ -305,7 +305,7 @@
             }
         },
         {
-            "objHashCode": -77786,
+            "objHashCode": -98438,
             "objIndex": 1,
             "position": {
                 "x": 0.0,
@@ -324,7 +324,7 @@
             }
         },
         {
-            "objHashCode": -77896,
+            "objHashCode": -98548,
             "objIndex": 2,
             "position": {
                 "x": 0.0,
@@ -343,7 +343,7 @@
             }
         },
         {
-            "objHashCode": -77946,
+            "objHashCode": -98598,
             "objIndex": 2,
             "position": {
                 "x": 2.0,
@@ -362,7 +362,7 @@
             }
         },
         {
-            "objHashCode": -77996,
+            "objHashCode": -98648,
             "objIndex": 1,
             "position": {
                 "x": 4.0,
@@ -381,7 +381,7 @@
             }
         },
         {
-            "objHashCode": -78106,
+            "objHashCode": -98758,
             "objIndex": 0,
             "position": {
                 "x": -3.0,
@@ -400,7 +400,7 @@
             }
         },
         {
-            "objHashCode": -78996,
+            "objHashCode": -98798,
             "objIndex": 0,
             "position": {
                 "x": -3.0,
@@ -415,6 +415,82 @@
             "angle": {
                 "x": 0.0,
                 "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+            "objHashCode": -99552,
+            "objIndex": 0,
+            "position": {
+                "x": -0.41217756271362307,
+                "y": 0.0,
+                "z": -3.659655809402466
+            },
+            "scale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0
+            },
+            "angle": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+            "objHashCode": -99592,
+            "objIndex": 0,
+            "position": {
+                "x": -4.0,
+                "y": 0.0,
+                "z": -3.0
+            },
+            "scale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0
+            },
+            "angle": {
+                "x": 0.0,
+                "y": 224.99998474121095,
+                "z": 0.0
+            }
+        },
+        {
+            "objHashCode": -99632,
+            "objIndex": 2,
+            "position": {
+                "x": -2.0,
+                "y": 0.0,
+                "z": -3.0
+            },
+            "scale": {
+                "x": 1.6000001430511475,
+                "y": 1.6000001430511475,
+                "z": 1.6000001430511475
+            },
+            "angle": {
+                "x": 270.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+            "objHashCode": -99682,
+            "objIndex": 2,
+            "position": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": -2.0
+            },
+            "scale": {
+                "x": 0.800000011920929,
+                "y": 0.800000011920929,
+                "z": 0.800000011920929
+            },
+            "angle": {
+                "x": 270.0,
+                "y": 90.0,
                 "z": 0.0
             }
         }

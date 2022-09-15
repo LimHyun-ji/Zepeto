@@ -1041,6 +1041,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1358359283}
     m_Modifications:
+    - target: {fileID: 1050282015507945765, guid: c04ca49809b92f944be64fb9ac628d64, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4915361505911088076, guid: c04ca49809b92f944be64fb9ac628d64, type: 3}
       propertyPath: m_Name
       value: SK_MINA_CASUAL_01_with_bones_in_skirt Variant
@@ -1096,6 +1100,10 @@ PrefabInstance:
     - target: {fileID: 5727751428018403702, guid: c04ca49809b92f944be64fb9ac628d64, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6413011965293686495, guid: c04ca49809b92f944be64fb9ac628d64, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c04ca49809b92f944be64fb9ac628d64, type: 3}
