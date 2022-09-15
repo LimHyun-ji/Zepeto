@@ -92,5 +92,7 @@ public class DataManager : MonoBehaviour
         //Destroy(obj.GetComponent<MovableFurniture>());
         obj.GetComponent<MovableFurniture>().enabled=false;
         obj.GetComponent<MovableFurniture>().isPlaced=true;
+        obj.GetComponent<MovableFurniture>().isInit=false;
+
     }
 }

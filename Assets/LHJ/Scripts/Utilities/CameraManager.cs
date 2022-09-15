@@ -79,16 +79,14 @@ public class CameraManager : MonoBehaviour
                     MoveCamera();
                 }
                 break;
-        }
-
-        
+        }        
     }
+    
 
     public void MoveCamera()
     {
-        float distance=Vector3.Distance(transform.position, camPos.position);
+        //float distance=Vector3.Distance(transform.position, camPos.position);
         float angleX=transform.eulerAngles.x;
-        if(distance< minDistance || distance > maxDistance) return;
 
         Vector3 dir;
         //타겟이 빌드 부지이면
@@ -108,18 +106,26 @@ public class CameraManager : MonoBehaviour
                 angleX = Mathf.Lerp(angleX, 14, Time.deltaTime);
             }
             transform.eulerAngles = new Vector3(angleX, 0, 0);
+            transform.position +=  dir * moveSpeed/10*Time.deltaTime;
         }
-        transform.position +=  dir * moveSpeed/10*Time.deltaTime;
-
-        distance=Vector3.Distance(transform.position, camPos.position);
-
-        if(distance > maxDistance ) 
+        else
         {
-            transform.localPosition = new Vector3(0, 0, -maxDistance);
+            transform.position +=  dir * moveSpeed*Time.deltaTime;
         }
-        if(distance < minDistance ) 
+
+        if(camPos)
         {
-            transform.localPosition = new Vector3(0, 0, -minDistance);
+            float distance=Vector3.Distance(transform.position, camPos.position);
+            if(distance< minDistance || distance > maxDistance) return;
+
+            if(distance > maxDistance ) 
+            {
+                transform.localPosition = new Vector3(0, 0, -maxDistance);
+            }
+            if(distance < minDistance ) 
+            {
+                transform.localPosition = new Vector3(0, 0, -minDistance);
+            }
         }
     }
 

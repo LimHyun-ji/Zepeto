@@ -40,6 +40,7 @@ public class GridBuildingSystem : MonoBehaviour
         {
             buildingObjects[i].GetComponent<MovableFurniture>().myIndex=i;
             preObjects[i] = Instantiate(buildingObjects[i]);
+
             preObjects[i].SetActive(false);
         }
     }
@@ -109,6 +110,7 @@ public class GridBuildingSystem : MonoBehaviour
         preObjects[index].GetComponent<MovableFurniture>().ChangeMatColor(preObjects[index].GetComponent<MovableFurniture>().materials, "_BaseColor", Color.blue);
 
         currentIndex=index;
+        preObjects[index].transform.localScale = buildingObjects[index].transform.localScale;
         pendingObj=preObjects[index];
         pendingObj.transform.position=pos;
         pendingObj.transform.rotation=buildingObjects[index].transform.rotation;//원본 Prefab의 rotation값으로 불러오기
@@ -142,7 +144,6 @@ public class GridBuildingSystem : MonoBehaviour
         {
 
             obj = Instantiate(buildingObjects[currentIndex], pendingObj.transform.position, pendingObj.transform.rotation);
-            obj.name += Random.Range(0, 99).ToString();
         }
         else
         {
@@ -150,7 +151,10 @@ public class GridBuildingSystem : MonoBehaviour
             obj=pendingObj;
         }
 
+        obj.transform.localScale=pendingObj.transform.localScale;
         checkCol = obj.GetComponent<MovableFurniture>();
+
+        //pendingObj.transform.localScale = buildingObjects[checkCol.myIndex].transform.localScale;
         checkCol.ChangeMatColor(checkCol.materials, "_BaseColor", Color.white);
 
         //스크립트 없애기
@@ -158,10 +162,6 @@ public class GridBuildingSystem : MonoBehaviour
         checkCol.isPlaced=true;
         checkCol.isInit=false;
         checkCol.enabled=false;
-        //obj.GetComponent<MovableFurniture>().enabled=false;
-
-        //List에 추가하기
-        //DataManager.Instance().AddObjectInfo(obj.GetHashCode(),currentIndex, obj.transform.localPosition, obj.transform.localScale, obj.transform.localEulerAngles);
 
         pendingObj=null;
         preObjects[currentIndex].SetActive(false);
