@@ -1,11 +1,4 @@
-﻿//
-//Filename: MaxCamera.cs
-//
-// original: http://www.unifycommunity.com/wiki/index.php?title=MouseOrbitZoom
-//
-// --01-18-2010 - create temporary target, if none supplied at start
-
-using UnityEngine;
+﻿using UnityEngine;
 using System.Collections;
 
 
@@ -37,7 +30,7 @@ public class MaxCamera : MonoBehaviour {
     void OnEnable() { Init(); }
 
     public void Init() {
-        //If there is no target, create a temporary target at 'distance' from the cameras current viewpoint
+        // 타겟이 없으면 카메라의 현재 시점에서 거리에 임시 타겟 생성
         if (!target) {
             GameObject go = new GameObject("Cam Target");
             go.transform.position = transform.position + (transform.forward * distance);
@@ -48,7 +41,7 @@ public class MaxCamera : MonoBehaviour {
         currentDistance = distance;
         desiredDistance = distance;
 
-        //be sure to grab the current rotations as starting points.
+        // 현재 회전을 시작점으로 잡아야 한다.
         position = transform.position;
         rotation = transform.rotation;
         currentRotation = transform.rotation;
@@ -58,9 +51,6 @@ public class MaxCamera : MonoBehaviour {
         yDeg = Vector3.Angle(Vector3.up, transform.up);
     }
 
-    /*
-     * Camera logic on LateUpdate to only update after all character movement logic has been handled. 
-     */
     void LateUpdate() {
         // If Control and Alt and Middle button? ZOOM!
         //if (Input.GetMouseButton(2) && Input.GetKey(KeyCode.LeftAlt) && Input.GetKey(KeyCode.LeftControl)) {
@@ -84,7 +74,8 @@ public class MaxCamera : MonoBehaviour {
             transform.rotation = rotation;
         }
         // otherwise if middle mouse is selected, we pan by way of transforming the target in screenspace
-        else if (Input.GetMouseButton(2)) {
+        else if (Input.GetMouseButton(2)) 
+        {
             //grab the rotation of the camera so we can move in a psuedo local XY space
             target.rotation = transform.rotation;
             target.Translate(Vector3.right * -Input.GetAxis("Mouse X") * panSpeed);
@@ -105,7 +96,8 @@ public class MaxCamera : MonoBehaviour {
         transform.position = position;
     }
 
-    private static float ClampAngle(float angle, float min, float max) {
+    private static float ClampAngle(float angle, float min, float max) 
+    {
         if (angle < -360)
             angle += 360;
         if (angle > 360)

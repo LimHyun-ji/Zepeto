@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Building : MonoBehaviour {
+public class Building : MonoBehaviour 
+{
 
-    //main class for walls floors and roofs
-
-    public void Destroy() {
+    public void Destroy() 
+    {
         Destroy(gameObject);
     }
 }

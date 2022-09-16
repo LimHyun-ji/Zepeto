@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Wall : Building{
+public class Wall : Building
+{
 
     private Vector3 position1;
     private Vector3 position2;
